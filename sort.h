@@ -10,8 +10,8 @@
 
 /**
  * enum bool - Enumeration of Boolean values.
- * @false: Equals 0
- * @true: Equals 1
+ * @false: Equals 0.
+ * @true: Equals 1.
  */
 typedef enum bool
 {
@@ -39,7 +39,7 @@ void print_list(const listint_t *list);
 
 /* Sorting algorithms */
 void bubble_sort(int *array, size_t size);
-void insertation_sort_list(listint_t **list);
+void insertion_sort_list(listint_t **list);
 void selection_sort(int *array, size_t size);
 void quick_sort(int *array, size_t size);
 void shell_sort(int *array, size_t size);
@@ -50,5 +50,8 @@ void heap_sort(int *array, size_t size);
 void radix_sort(int *array, size_t size);
 void bitonic_sort(int *array, size_t size);
 void quick_sort_hoare(int *array, size_t size);
+
+void swap_ints(int *a, int *b);
+void swap_nodes(listint_t **h, listint_t **n1, listint_t *n2);
 
 #endif /* SORT_H */
