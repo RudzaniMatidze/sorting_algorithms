@@ -1,10 +1,11 @@
 #include "sort.h"
 
 /**
- * get_max - Get the maximum value in an array of integers
- * @array: Array of integers
- * @size: Size of the array
- * Return: Maximum integer in the array.
+ * get_max - Get the maximum value in an array of integers.
+ * @array: An array of integers.
+ * @size: The size of the array.
+ *
+ * Return: The maximum integer in the array.
  */
 int get_max(int *array, int size)
 {
@@ -15,48 +16,53 @@ int get_max(int *array, int size)
 		if (array[k] > max)
 			max = array[k];
 	}
+
 	return (max);
 }
 
 /**
- * counting_sort -  Sort an array of integeres in ascending order
- * @array: Array of integers
- * @size: Size of the array
- * Description: Prints counting array after setting it up.
+ * counting_sort - Sort an array of integers in ascending order
+ *                 using the counting sort algorithm.
+ * @array: An array of integers.
+ * @size: The size of the array.
+ *
+ * Description: Prints the counting array after setting it up.
  */
 void counting_sort(int *array, size_t size)
 {
-	int *cnt, *sort, max, k;
+	int *count, *sorts, max, k;
 
 	if (array == NULL || size < 2)
 		return;
 
-	sort = malloc(sizeof(int) * size);
-	if (sort == NULL)
+	sorts = malloc(sizeof(int) * size);
+	if (sorts == NULL)
 		return;
 	max = get_max(array, size);
-	cnt = malloc(sizeof(int) * (max + 1));
-	if (cnt == NULL)
+	count = malloc(sizeof(int) * (max + 1));
+	if (count == NULL)
 	{
-		free(sort);
+		free(sorts);
 		return;
 	}
+
 	for (k = 0; k < (max + 1); k++)
-		cnt[k] = 0;
+		count[k] = 0;
 	for (k = 0; k < (int)size; k++)
-		cnt[array[k]] += 1;
+		count[array[k]] += 1;
 	for (k = 0; k < (max + 1); k++)
-		cnt[k] += cnt[k - 1];
-	print_array(cnt, max + 1);
+		count[k] += count[k - 1];
+	print_array(count, max + 1);
 
 	for (k = 0; k < (int)size; k++)
 	{
-		sort[cnt[array[k]] - 1] = array[k];
-		cnt[array[k]] -= 1;
+		sorts[count[array[k]] - 1] = array[k];
+		count[array[k]] -= 1;
 	}
-	for (k = 0; k < (int)size; k++)
-		array[k] = sort[k];
 
-	free(sort);
-	free(cnt);
+	for (k = 0; k < (int)size; k++)
+		array[k] = sorts[k];
+
+	free(sorts);
+	free(count);
 }
