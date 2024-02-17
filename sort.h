@@ -58,6 +58,7 @@ int lomuto_partition(int *array, size_t size, int left, int right);
 void lomuto_sort(int *array, size_t size, int left, int right);
 void swap_node_ahead(listint_t **list, listint_t **tail, listint_t **shaker);
 void swap_node_behind(listint_t **list, listint_t **tail, listint_t **shaker);
+int get_max(int *array, int size);
 
 
 #endif /* SORT_H */
