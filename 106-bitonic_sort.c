@@ -1,6 +1,5 @@
 #include "sort.h"
 
-
 /**
  * swap_ints - Swaps two integers in an array.
  * @a: First integer to swap.
@@ -26,18 +25,18 @@ void swap_ints(int *a, int *b)
 void bitonic_merge(int *array, size_t size, size_t start, size_t seq,
 		char flow)
 {
-	size_t k, jumps = seq / 2;
+	size_t a, jump = seq / 2;
 
 	if (seq > 1)
 	{
-		for (k = start; k < start + jumps; k++)
+		for (a = start; a < start + jump; a++)
 		{
-			if ((flow == UP && array[k] > array[k + jumps]) ||
-			    (flow == DOWN && array[k] < array[k + jumps]))
-				swap_ints(array + k, array + k + jumps);
+			if ((flow == UP && array[a] > array[a + jump]) ||
+			    (flow == DOWN && array[a] < array[a + jump]))
+				swap_ints(array + a, array + a + jump);
 		}
-		bitonic_merge(array, size, start, jumps, flow);
-		bitonic_merge(array, size, start + jumps, jumps, flow);
+		bitonic_merge(array, size, start, jump, flow);
+		bitonic_merge(array, size, start + jump, jump, flow);
 	}
 }
 
@@ -51,7 +50,7 @@ void bitonic_merge(int *array, size_t size, size_t start, size_t seq,
  */
 void bitonic_seq(int *array, size_t size, size_t start, size_t seq, char flow)
 {
-	size_t cuts = seq / 2;
+	size_t cut = seq / 2;
 	char *str = (flow == UP) ? "UP" : "DOWN";
 
 	if (seq > 1)
@@ -59,8 +58,8 @@ void bitonic_seq(int *array, size_t size, size_t start, size_t seq, char flow)
 		printf("Merging [%lu/%lu] (%s):\n", seq, size, str);
 		print_array(array + start, seq);
 
-		bitonic_seq(array, size, start, cuts, UP);
-		bitonic_seq(array, size, start + cuts, cuts, DOWN);
+		bitonic_seq(array, size, start, cut, UP);
+		bitonic_seq(array, size, start + cut, cut, DOWN);
 		bitonic_merge(array, size, start, seq, flow);
 
 		printf("Result [%lu/%lu] (%s):\n", seq, size, str);
@@ -70,7 +69,6 @@ void bitonic_seq(int *array, size_t size, size_t start, size_t seq, char flow)
 
 /**
  * bitonic_sort - Sorts an array of integers in ascending
- *                order using the bitonic sort algorithm.
  * @array: Array of integers.
  * @size: Size of the array.
  * Description: Prints the array after each swap and only works for
